@@ -1,0 +1,69 @@
+//Java Program to Reverse a linked list in Pairs
+public class ReverseLinkedListInPair
+{
+    private Node head;
+    private static class Node 
+    {
+        private int value;
+        private Node next;
+        Node(int value) {
+            this.value = value;
+        }
+    }
+    public void addLast(Node node) {
+        if (head == null) {
+            head = node;
+        } else {
+            Node temp = head;
+            while (temp.next != null)
+                temp = temp.next;
+            temp.next = node;
+        }
+    }
+    public void printLinkedList(Node head) {
+        Node temp = head;
+        while (temp != null) {
+            System.out.format("%d ", temp.value);
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+    public static Node reverseLInPairs(Node head) 
+    {
+        Node current=head;
+        Node temp=null;
+        Node newHead =null;
+        while (current != null && current.next != null) 
+        {
+            if (temp != null) 
+            {
+                temp.next.next = current.next;
+            }
+            temp=current.next;     
+            current.next=temp.next;
+            temp.next=current;
+            if (newHead == null)
+                newHead = temp;
+            current=current.next;
+        }     
+        return newHead;
+    }
+   
+    public static void main(String[] args) {
+        ReverseLinkedListInPair li = new ReverseLinkedListInPair();
+        
+        Node head=new Node(0);
+        li.addLast(head);
+        li.addLast(new Node(1));
+        li.addLast(new Node(2));
+        li.addLast(new Node(3));
+        li.addLast(new Node(4));
+        li.addLast(new Node(5));
+        System.out.println("Before reversing in pair: ");
+        li.printLinkedList(head);
+        
+        Node result=reverseLLInPairs(head);
+        System.out.println("After reversing in pair: ");
+        li.printLinkedList(result);
+    }
+}
